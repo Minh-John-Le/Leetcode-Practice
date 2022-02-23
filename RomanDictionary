@@ -1,0 +1,48 @@
+// Translate Roman number to decimal number
+class Solution {
+    public int romanToInt(String s) {
+        HashMap<String, Integer> romanDict = new HashMap();
+        
+        // populate dictionary
+        romanDict.put("I", 1);
+        romanDict.put("V", 5);
+        romanDict.put("X", 10);
+        romanDict.put("L", 50);
+        romanDict.put("C", 100);
+        romanDict.put("D", 500);
+        romanDict.put("M", 1000);
+        
+        int pointer = s.length() - 1;
+        int sum = 0;
+        while(pointer >= 0)
+        {
+            if((pointer - 1 < 0))
+            {
+                sum += romanDict.get(String.valueOf(s.charAt(pointer)));
+                return sum;
+            }
+            
+            
+            int val1 = romanDict.get(String.valueOf(s.charAt(pointer)));
+            int val2 = romanDict.get(String.valueOf(s.charAt(pointer - 1)));
+
+            if(((int)(val1 / val2) -1 == 4) // condition for 4, 40, 400
+                || (int)(val1 / val2) -1 == 9) // condition for 9, 90 , 900
+            {
+                // translate 2 char into value
+                sum += (int)(val1 - val2);
+                pointer --;
+            } 
+            else // translate 1 char into value
+            {
+                sum += val1;
+            }
+
+            // go to next char
+            pointer --;
+            
+        }
+        
+        return sum;
+    }
+}
