@@ -1,0 +1,62 @@
+// Check the valid of bracket
+
+class SolutionValidBracket {
+    public boolean isValid(String s) {
+        Stack<String> Stack = new Stack();
+        
+        for(int i = 0; i < s.length(); i ++)
+        {
+            String a = String.valueOf(s.charAt(i));
+            switch(a) {
+                case "(":
+                    Stack.push("(");
+                    break;
+                case "{":
+                    Stack.push("{");
+                    break;
+                case "[":
+                    Stack.push("[");
+                    break;
+                
+                case ")":
+                    if(Stack.size() != 0 && (Stack.peek()).equals("("))
+                    {
+                        Stack.pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    break;
+                case "}":
+                    if(Stack.size() != 0 && (Stack.peek()).equals("{"))
+                    {
+                        Stack.pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    break;
+                case "]":
+                    if(Stack.size() != 0 && (Stack.peek()).equals("["))
+                    {
+                        Stack.pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        if(Stack.size() > 0)
+        {
+            return false;
+        }
+        return true;
+    }
+}
