@@ -1,0 +1,38 @@
+//Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+//You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+//You can return the answer in any order.
+
+public class Solution {
+    // Summary this method return the index of 2 number in an array that add up to a number
+    
+    public int[] TwoSum(int[] nums, int target) {
+    Dictionary<int,int> myDictionary = new Dictionary<int,int>();
+         int[] solution = new int[2];
+        for(int i = 0; i < nums.Count(); i++) 
+        {
+            int val = target - nums[i];
+            if(!myDictionary.ContainsKey(nums[i]))
+            {
+                myDictionary.Add(nums[i], val);
+            }
+               
+            if(myDictionary.ContainsKey(val))
+            {
+                solution[0] = i;
+                for(int j = 0; j < i; j++)
+                {
+                    if(nums[j] == val)
+                    {
+                        solution[1] = j;
+                        return solution;
+                    }
+                }
+            }
+        }
+        
+        return solution;
+    }
+    
+}
