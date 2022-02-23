@@ -1,0 +1,22 @@
+// Check if a number is a Palindrome Number
+class Solution {
+    public boolean isPalindrome(int x) {
+       
+        String y = String.valueOf(x);
+             
+        int leftPointer = 0;
+        int rightPointer = y.length() - 1;
+        
+        while(leftPointer < rightPointer)
+        {   
+            if(y.charAt(leftPointer) != y.charAt(rightPointer))
+            {
+                return false;
+            }
+            leftPointer++;
+            rightPointer--;
+        }
+        
+        return true;
+    }
+}
