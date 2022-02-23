@@ -1,0 +1,51 @@
+import java.util.*;
+public class RemoveExtraNum {
+	public static void main(String[] args)
+	{
+		SolutionRemoveExtraNum2 solution = new SolutionRemoveExtraNum2();
+		int[] a = new int[] {0,0,1,1,1,2,2,3,3,4};
+		solution.removeDuplicates(a);
+		
+	}
+
+	
+}
+
+class SolutionRemoveExtraNum {
+    public int removeDuplicates(int[] nums) 
+    {
+        Stack<Integer> solution = new Stack();
+        solution.push(nums[0]);
+        for( int i = 1; i < nums.length; i++)
+        {
+            if(solution.peek() != nums[i])
+            {
+                solution.push(nums[i]);
+            }
+        }
+        int a = solution.size();
+        for (int i = 0; i < a; i++)
+        {
+            nums[a - i - 1] = solution.pop();
+        }
+        
+        return a;
+    }
+}
+
+class SolutionRemoveExtraNum2 {
+	public int removeDuplicates(int[] nums) 
+    {
+		int count = 1;
+		for (int i = 1; i < nums.length; i++)
+        {
+			if(nums[count -1] < nums[i])
+			{
+				nums[count] = nums[i];
+				count++;
+			}
+				
+        }
+		return count;
+    }
+}
