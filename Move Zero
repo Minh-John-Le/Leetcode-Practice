@@ -1,0 +1,36 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int currentZero = nums.length;
+        int j = 0;
+        
+        // Find the first Zero
+        while(j < nums.length)
+        {
+            if(nums[j] == 0)
+            {
+                currentZero = j;
+                break;
+            }
+            j++;
+        }
+        
+        // Iterate through the rest of the array and 
+        //move the block of Zero by swap the first zero with a non zero number
+        for(int i = currentZero + 1; i < nums.length; i++)
+        {
+            if(nums[i] != 0)
+            {
+                nums[currentZero] = nums[i];
+                nums[i] = 0;
+                currentZero++;
+            }
+        }
+
+    }
+}
+
+/*
+Time-complexity O(n) since iterate thorugh array once;
+Space-complexity O(1) use 1  slot for the pointer at first zero
+
+*/
