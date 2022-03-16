@@ -1,3 +1,5 @@
+/**
+ * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
@@ -7,18 +9,39 @@
  * }
  */
 class Solution {
-    public ListNode middleNode(ListNode head) {
-  
-        ArrayList<ListNode> listOfList = new ArrayList<ListNode>();
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode trackNode = head;
+        ListNode initialNode = head;
+        
+        while(n > 0)
+        {
+            n--;
+            head = head.next;
+        }
+        
+        if(head == null)
+        {
+            return initialNode.next;
+        }
+        
+        head = head.next;
+        
         while(head != null)
         {
-            listOfList.add(head);
             head = head.next;
-
+            trackNode = trackNode.next;
         }
-
-        return listOfList.get((int)Math.ceil((listOfList.size() / 2)));
+        
+        trackNode.next = trackNode.next.next;
+        return initialNode;
     }
+        
 }
 
-// run-time O(n) since iterate through the list once
+/*
+idea is having 2 pointer with the the late pointer have offset equals to the index of fure remove Node. 
+When fast pointer reach the end, we will 1 index before the one need to remove
+run-timr O(n) since we iterate through list once
+
+
+*/
