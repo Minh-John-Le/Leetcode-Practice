@@ -1,0 +1,36 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int max = 0;
+        String a = "";
+        String currentChar = "";
+        
+
+        for(int i = 0; i < s.length(); i++)
+        {
+            currentChar = String.valueOf(s.charAt(i));
+            int index = a.indexOf(currentChar);
+
+            if(index == -1)
+            {
+                a = a.concat(currentChar);
+            }
+            else
+            {
+                max = Math.max(max, a.length());
+                a = a.substring(index + 1);
+                a = a.concat(currentChar);
+            }
+        
+        
+        }
+        return Math.max(max, a.length());
+        
+    }
+}
+
+/*
+Idea is having a range or two pointer where all index in between is not repeating. 
+Thus, when counter a repeating character, we will update the left pointer or sink the range to appropriate position
+Run-time O(n) since iterate through array Once;
+
+*/
