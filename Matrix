@@ -1,0 +1,95 @@
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        boolean[][] isCheck = new boolean[mat.length][mat[0].length];
+        LinkedList<Grid> queue = new LinkedList<Grid>();
+        int max = mat.length + mat[0].length;
+        // Initialize result
+        for (int i = 0; i < mat.length; i++)
+        {
+            for (int j = 0; j < mat[0].length; j++)
+            {
+                if(mat[i][j] == 0)
+                {
+                    queue.add(new Grid(i,j));
+                    isCheck[i][j] = true;
+                }
+                else
+                {
+                    mat[i][j] = max;
+                }
+            }
+        }
+        
+        while(queue.size() > 0)
+        {
+            Grid grid = queue.getFirst();
+            
+                
+            // Update the grid
+            
+            isCheck[grid.r][grid.c] = true;
+            int val = mat[grid.r][grid.c];
+            
+            if(grid.r + 1 < mat.length) // update right grid   
+            { 
+                mat[grid.r + 1][grid.c] = Math.min(val + 1, mat[grid.r + 1][grid.c]);
+                if(!isCheck[grid.r + 1][grid.c])
+                    queue.add(new Grid(grid.r + 1, grid.c)); // put this grid into queue
+                    isCheck[grid.r + 1][grid.c] = true;
+            }
+            
+            if(grid.r - 1 >= 0) // update left grid  
+            {  
+                mat[grid.r - 1][grid.c] = Math.min(val + 1, mat[grid.r - 1][ grid.c]);             
+                if(!isCheck[grid.r - 1][grid.c])
+                    queue.add(new Grid(grid.r - 1, grid.c)); // put this grid into queue
+                    isCheck[grid.r - 1][grid.c] = true;
+            }
+            
+            if(grid.c + 1 <mat[0].length)// update upper grid 
+            {   
+                mat[grid.r][grid.c + 1] = Math.min(val + 1, mat[grid.r][grid.c + 1]);
+                if(!isCheck[grid.r][grid.c + 1])
+                    queue.add(new Grid(grid.r, grid.c + 1)); // put this grid into queue
+                    isCheck[grid.r][grid.c + 1] = true;
+            }
+            
+            if(grid.c - 1 >= 0)     // update bottom grid 
+            {   
+                mat[grid.r][grid.c - 1] = Math.min(val + 1, mat[grid.r][grid.c - 1]);
+                if(!isCheck[grid.r][grid.c - 1])
+                    queue.add(new Grid(grid.r, grid.c - 1)); // put this grid into queue
+                    isCheck[grid.r][grid.c - 1] = true;
+            }
+            queue.remove();
+        }
+        
+        
+        return mat;
+        
+    }
+    
+    private class Grid
+    {
+        int r = 0;
+        int c = 0;
+        public Grid(int r, int c)
+        {
+            this.r = r;
+            this.c = c;
+        }
+    }
+}
+
+/*
+Idea: put all zeros grid into a queue and go through them and update thier neigbor if the neighbor have never been check, we put them into the queue. 
+Since we go from the closet to O grid outward we would never miss or wrongly update any grid
+
+Run-time
+intialize m x n
+update the map 4* O(m x n) since we consider each grid at most 4 time 
+
+---> O(m x n)
+
+
+*/
