@@ -1,0 +1,76 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        
+        
+        if(root1 != null && root2 != null)
+        {
+            root1.val = root1.val + root2.val;
+        }
+        else if (root1 == null && root2 != null)
+        {
+            return root2;
+        }
+        else 
+        {
+            return root1;
+        }
+        
+        mergeTreesHelper(root1, root2);
+        return root1;
+    }
+    
+    private void mergeTreesHelper(TreeNode root1, TreeNode root2) {
+        
+        if(root1.left != null && root2.left != null)
+        {
+            root1.left.val = root1.left.val + root2.left.val;
+            mergeTreesHelper(root1.left, root2.left);
+        }
+        else if (root1.left == null)
+        {
+            root1.left = root2.left;
+     
+        }
+        
+        if(root1.right != null && root2.right != null)
+        {
+            root1.right.val = root1.right.val + root2.right.val;
+            mergeTreesHelper(root1.right, root2.right);
+        }
+        else if (root1.right == null)
+        {
+            root1.right = root2.right;
+     
+        }
+
+        return;
+        
+    }
+    
+    
+}
+
+/* 
+Idea: perform bread first search on Both tree at the same time. If both have have non null node, 
+we take the sum and put it into current node of tree 1.
+Otherwise, we make the current node of tree Once as the non-null node
+
+Run-time O(n) where n is the node of tree 1 since when go through each node of tree 1 once.
+
+
+*/
