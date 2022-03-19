@@ -1,0 +1,85 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    private double level = 0;
+    private double counter = 0;
+    private Node previousNode = null;
+    
+    private LinkedList<Node> nodeList = new LinkedList<Node>();
+    public Node connect(Node root) {
+        if(root == null)
+        {
+            return root;
+        }
+        nodeList.add(root);
+        BFS(root);
+        return root;
+        
+    }
+    
+    private void BFS(Node root)
+    {
+        while(nodeList.size() > 0)
+        {
+            Node currentNode = nodeList.getFirst();
+            if(currentNode.left != null)
+            {
+                nodeList.add(currentNode.left);
+                nodeList.add(currentNode.right);
+            }
+            connectNextNode(currentNode);
+            nodeList.remove();
+        }
+    }
+    
+    private void connectNextNode(Node node)
+    {
+        counter++;
+        if(previousNode != null)
+                previousNode.next = node;
+        previousNode = node;
+        
+        if(log2(counter) == level)
+        {
+            level++;
+            counter = 0;
+            node.next = null;         
+            previousNode = null;
+        }
+
+        
+        
+    }
+    
+    private double log2(double x)
+    {
+        return (int)(Math.log(x) / Math.log(2));
+    }
+}
+
+/* 
+Idea: perform bread first search through the tree. Sicne this tree is binary perfect it mean that each level have 2^level of node.
+We can use that information to determine the last node (most right in the level) connect to null. While each node connect to the next node in same level
+
+Rune-time: O(n) where n is the node of the tree since we iterate though the whole tree once.
