@@ -1,0 +1,57 @@
+class Solution {
+    public int countHillValley(int[] nums) {
+        
+
+        
+        boolean isHill = false;
+        int previous = nums[1];
+        int index = 0;
+        while(index < nums.length - 2 && nums[index] == nums[index + 1])
+        {
+            index++;
+        }
+        
+        if(nums[index] < nums[index + 1])
+                isHill = true;
+        
+        int count = 0;
+        
+        for (int i = index + 1; i < nums.length; i++)
+        {
+            if(isHill)
+            {
+                if(nums[i] < previous)
+                {
+                    isHill = false;
+                    count++;  
+                }
+                previous = nums[i];
+             
+            }
+            else
+            {
+                if(nums[i] > previous)
+                {
+                    isHill = true;
+                    count++;
+                }
+                previous = nums[i];
+            }
+            
+            
+        }
+        return count;
+    }
+}
+
+/*
+firstly we find the first hill or valley and mark that we are at the hill
+In other words, we looking for a decreasement in magnitude if we are at the hill
+while looking for increasement in magnitude while in the valley.
+
+Thus iterating through array once will give us the anser
+
+Run-time O(n)
+
+
+*/
