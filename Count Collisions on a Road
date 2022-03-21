@@ -1,0 +1,77 @@
+class Solution {
+    public int countCollisions(String directions) {
+        
+        int count = 0; // number of colision
+        if(directions.length() <= 1)
+        {
+            return 0;
+        }
+        int lastState = 0;
+        
+        
+        
+        int index = 0;
+        while( index < directions.length() - 1)
+        {
+            if(directions.charAt(index) != 'L')
+            {
+                break;
+            }
+            index++;
+        }
+        
+
+        int endIndex = directions.length() -1;
+        
+        while (endIndex > 0)
+        {
+            if(directions.charAt(index) != 'L')
+            {
+                break;
+            }
+            endIndex--;
+        }
+        
+        if(endIndex <= index)
+        {
+            return 0;
+        }
+        
+        
+        
+        for (int i = index; i <= endIndex; i++)
+        {
+            
+            if(directions.charAt(i) == 'R')
+            {
+                lastState++;
+            }            
+            else if(directions.charAt(i) == 'L')
+            {
+                count += lastState + 1;
+                lastState = 0;
+            }
+            else
+            {
+                count += lastState;
+                lastState = 0;
+            }
+
+        }
+        return count;
+    }
+}
+
+
+
+/*
+Idead iterate through the list of car. 
+all right car before meeting statinary car or left car always contribute one point 
+stationary car contribute Zero point
+Left car contribute one point after the appearance of right and stationary car
+
+Run-time: O(n) since iterate through array of car onece
+
+
+
+*/
