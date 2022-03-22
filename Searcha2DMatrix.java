@@ -1,5 +1,5 @@
-class Solution {
-    public boolean Searcha2DMatrix(int[][] matrix, int target) {
+class Searcha2DMatrix {
+    public boolean searchMatrix(int[][] matrix, int target) {
         
         int index = 0;
         int row = matrix.length - 1;
