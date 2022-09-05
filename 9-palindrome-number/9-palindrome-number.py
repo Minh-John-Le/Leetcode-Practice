@@ -6,6 +6,7 @@ class Solution(object):
         """
         if(x < 0):
             return False
+        
         power = len(str(x)) - 1
         
         while(x > 0):
