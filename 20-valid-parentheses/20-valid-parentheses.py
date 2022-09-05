@@ -7,6 +7,7 @@ class Solution(object):
         glossal = {"{":"}",  "[":"]", "(":")"}
         
         stack = ['0']
+        s = s + '0'
         for char in s:
             if char in glossal:
                 stack.append(glossal[char])
@@ -14,6 +15,4 @@ class Solution(object):
                 if(stack.pop() != char):
                     return False
                 
-        if len(stack) != 1:
-            return False
         return True
