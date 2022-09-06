@@ -5,7 +5,7 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         nums = sorted(nums)
-        print(nums)
+   
         result = []
         dictionary = dict()
         for cIndex in range(0, len(nums) - 2):
